@@ -20,7 +20,7 @@ export default function TerminalChatPastRollout({
     <Box flexDirection="column">
       <Box borderStyle="round" paddingX={1} width={64}>
         <Text>
-          ● OpenAI <Text bold>Codex</Text>{" "}
+          ● OpenAI / Knowit <Text bold>Knowdex</Text>{" "}
           <Text dimColor>
             (research preview) <Text color="blueBright">v{version}</Text>
           </Text>

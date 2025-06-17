@@ -582,7 +582,7 @@ export function SinglePassApp({
         <Box borderStyle="round" flexDirection="column" paddingX={1} width={80}>
           <Text>
             <Text bold color="magenta">
-              OpenAI <Text bold>Codex</Text>
+              OpenAI / Knowit <Text bold>Knowdex</Text>
             </Text>{" "}
             <Text dimColor>(full context mode)</Text>
           </Text>

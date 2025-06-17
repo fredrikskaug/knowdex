@@ -146,7 +146,7 @@ export default function TerminalChat({
 }: Props): React.ReactElement {
   const notify = Boolean(config.notify);
   const [model, setModel] = useState<string>(config.model);
-  const [provider, setProvider] = useState<string>(config.provider || "openai");
+  const [provider, setProvider] = useState<string>(config.provider || "azure");
   const [lastResponseId, setLastResponseId] = useState<string | null>(null);
   const [items, setItems] = useState<Array<ResponseItem>>([]);
   const [loading, setLoading] = useState<boolean>(false);
@@ -378,7 +378,7 @@ export default function TerminalChat({
             .trim();
           const preview = text.replace(/\n/g, " ").slice(0, 100);
           const safePreview = preview.replace(/"/g, '\\"');
-          const title = "Codex CLI";
+          const title = "Knowdex CLI";
           const cwd = PWD;
           spawn("osascript", [
             "-e",
@@ -427,7 +427,7 @@ export default function TerminalChat({
   useEffect(() => {
     (async () => {
       const available = await getAvailableModels(provider);
-      if (model && available.length > 0 && !available.includes(model)) {
+      if (model && available.length > 0 && !available.includes(model) && provider !== "azure") {
         setItems((prev) => [
           ...prev,
           {

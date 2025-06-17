@@ -89,7 +89,7 @@ export function initLogger(): Logger {
   const isWin = process.platform === "win32";
 
   // On Mac and Windows, os.tmpdir() returns a user-specific folder, so prefer
-  // it there. On Linux, use ~/.local/oai-codex so logs are not world-readable.
+  // it there. On Linux, use ~/.local/oai-knowdex so logs are not world-readable.
   const logDir =
     isMac || isWin
       ? path.join(os.tmpdir(), "oai-codex")

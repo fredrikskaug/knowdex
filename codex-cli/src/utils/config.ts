@@ -43,8 +43,8 @@ if (!isVitest) {
   loadDotenv({ path: USER_WIDE_CONFIG_PATH });
 }
 
-export const DEFAULT_AGENTIC_MODEL = "codex-mini-latest";
-export const DEFAULT_FULL_CONTEXT_MODEL = "gpt-4.1";
+export const DEFAULT_AGENTIC_MODEL = "o4-mini-agentic";
+export const DEFAULT_FULL_CONTEXT_MODEL = "o1-fullcontext";
 export const DEFAULT_APPROVAL_MODE = AutoApprovalMode.SUGGEST;
 export const DEFAULT_INSTRUCTIONS = "";
 
@@ -71,9 +71,11 @@ export let OPENAI_API_KEY = process.env["OPENAI_API_KEY"] || "";
 export const AZURE_OPENAI_API_VERSION =
   process.env["AZURE_OPENAI_API_VERSION"] || "2025-03-01-preview";
 
+export const AZURE_OPENAI_DEPLOYMENT = "o4-mini-agentic";
 export const DEFAULT_REASONING_EFFORT = "high";
 export const OPENAI_ORGANIZATION = process.env["OPENAI_ORGANIZATION"] || "";
 export const OPENAI_PROJECT = process.env["OPENAI_PROJECT"] || "";
+export const HTTPS_PROXY_URL = process.env["HTTPS_PROXY"] || "";
 
 // Can be set `true` when Codex is running in an environment that is marked as already
 // considered sufficiently locked-down so that we allow running without an explicit sandbox.
@@ -85,7 +87,7 @@ export function setApiKey(apiKey: string): void {
   OPENAI_API_KEY = apiKey;
 }
 
-export function getBaseUrl(provider: string = "openai"): string | undefined {
+export function getBaseUrl(provider: string = "azure"): string | undefined {
   // Check for a PROVIDER-specific override: e.g. OPENAI_BASE_URL or OLLAMA_BASE_URL.
   const envKey = `${provider.toUpperCase()}_BASE_URL`;
   if (process.env[envKey]) {
@@ -124,11 +126,6 @@ export function getApiKey(provider: string = "openai"): string | undefined {
   const customApiKey = process.env[`${provider.toUpperCase()}_API_KEY`];
   if (customApiKey) {
     return customApiKey;
-  }
-
-  // If the provider not found in the providers list and `OPENAI_API_KEY` is set, use it
-  if (OPENAI_API_KEY !== "") {
-    return OPENAI_API_KEY;
   }
 
   // We tried.

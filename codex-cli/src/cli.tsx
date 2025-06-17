@@ -7,7 +7,7 @@ if (major < 22) {
   // eslint-disable-next-line no-console
   console.error(
     "\n" +
-      "Codex CLI requires Node.js version 22 or newer.\n" +
+  "Knowdex CLI requires Node.js version 22 or newer.\n" +
       `You are running Node.js v${process.versions.node}.\n` +
       "Please upgrade Node.js: https://nodejs.org/en/download/\n",
   );
@@ -55,7 +55,7 @@ import os from "os";
 import path from "path";
 import React from "react";
 
-// Call this early so `tail -F "$TMPDIR/oai-codex/codex-cli-latest.log"` works
+// Call this early so `tail -F "$TMPDIR/oai-knowdex/knowdex-cli-latest.log"` works
 // immediately. This must be run with DEBUG=1 for logging to work.
 initLogger();
 
@@ -67,8 +67,8 @@ initLogger();
 const cli = meow(
   `
   Usage
-    $ codex [options] <prompt>
-    $ codex completion <bash|zsh|fish>
+    $ knowdex [options] <prompt>
+    $ knowdex completion <bash|zsh|fish>
 
   Options
     --version                       Print version and exit
@@ -113,9 +113,9 @@ const cli = meow(
                                with all other flags, except for --model.
 
   Examples
-    $ codex "Write and run a python program that prints ASCII art"
-    $ codex -q "fix build issues"
-    $ codex completion bash
+    $ knowdex "Write and run a python program that prints ASCII art"
+    $ knowdex -q "fix build issues"
+    $ knowdex completion bash
 `,
   {
     importMeta: import.meta,
@@ -225,22 +225,22 @@ const cli = meow(
 if (cli.input[0] === "completion") {
   const shell = cli.input[1] || "bash";
   const scripts: Record<string, string> = {
-    bash: `# bash completion for codex
-_codex_completion() {
+    bash: `# bash completion for knowdex
+    _knowdex_completion() {
   local cur
   cur="\${COMP_WORDS[COMP_CWORD]}"
   COMPREPLY=( $(compgen -o default -o filenames -- "\${cur}") )
 }
-complete -F _codex_completion codex`,
-    zsh: `# zsh completion for codex
-#compdef codex
+    complete -F _knowdex_completion knowdex`,
+    zsh: `# zsh completion for knowdex
+#compdef knowdex
 
-_codex() {
+_knowdex() {
   _arguments '*:filename:_files'
 }
-_codex`,
-    fish: `# fish completion for codex
-complete -c codex -a '(__fish_complete_path)' -d 'file path'`,
+_knowdex`,
+    fish: `# fish completion for knowdex
+    complete -c knowdex -a '(__fish_complete_path)' -d 'file path'`,
   };
   const script = scripts[shell];
   if (!script) {
@@ -291,7 +291,7 @@ let config = loadConfig(undefined, undefined, {
 let prompt = cli.input[0];
 const model = cli.flags.model ?? config.model;
 const imagePaths = cli.flags.image;
-const provider = cli.flags.provider ?? config.provider ?? "openai";
+const provider = cli.flags.provider ?? config.provider ?? "azure";
 
 const client = {
   issuer: "https://auth.openai.com",
@@ -340,7 +340,7 @@ if (cli.flags.login) {
   } catch {
     /* ignore */
   }
-} else if (!apiKey) {
+} else if (!apiKey && provider.toLowerCase() === "openai") {
   apiKey = await fetchApiKey(client.issuer, client.client_id);
 }
 // Ensure the API key is available as an environment variable for legacy code
@@ -363,7 +363,7 @@ if (cli.flags.free) {
 }
 
 // Set of providers that don't require API keys
-const NO_API_KEY_REQUIRED = new Set(["ollama"]);
+const NO_API_KEY_REQUIRED = new Set(["ollama", "azure"]);
 
 // Skip API key validation for providers that don't require an API key
 if (!apiKey && !NO_API_KEY_REQUIRED.has(provider.toLowerCase())) {
@@ -436,7 +436,7 @@ if (config.flexMode) {
 
 if (
   !(await isModelSupportedForResponses(provider, config.model)) &&
-  (!provider || provider.toLowerCase() === "openai")
+  (!provider || provider.toLowerCase() === "azure")
 ) {
   // eslint-disable-next-line no-console
   console.error(
@@ -528,7 +528,7 @@ if (cli.flags.quiet) {
   if (!prompt || prompt.trim() === "") {
     // eslint-disable-next-line no-console
     console.error(
-      'Quiet mode requires a prompt string, e.g.,: codex -q "Fix bug #123 in the foobar project"',
+    'Quiet mode requires a prompt string, e.g.,: knowdex -q "Fix bug #123 in the foobar project"',
     );
     process.exit(1);
   }

@@ -365,7 +365,7 @@ async function handleCallback(
     requested_token: "openai-api-key",
     subject_token: tokenData.id_token,
     subject_token_type: "urn:ietf:params:oauth:token-type:id_token",
-    name: `Codex CLI [auto-generated] (${new Date().toISOString().slice(0, 10)}) [${
+    name: `Knowdex CLI [auto-generated] (${new Date().toISOString().slice(0, 10)}) [${
       randomId
     }]`,
   });
@@ -453,7 +453,7 @@ const LOGIN_SUCCESS_HTML = String.raw`
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Sign into Codex CLI</title>
+    <title>Sign into Knowdex CLI</title>
     <link rel="icon" href='data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" viewBox="0 0 32 32"%3E%3Cpath stroke="%23000" stroke-linecap="round" stroke-width="2.484" d="M22.356 19.797H17.17M9.662 12.29l1.979 3.576a.511.511 0 0 1-.005.504l-1.974 3.409M30.758 16c0 8.15-6.607 14.758-14.758 14.758-8.15 0-14.758-6.607-14.758-14.758C1.242 7.85 7.85 1.242 16 1.242c8.15 0 14.758 6.608 14.758 14.758Z"/%3E%3C/svg%3E' type="image/svg+xml">
     <style>
       .container {
@@ -574,7 +574,7 @@ const LOGIN_SUCCESS_HTML = String.raw`
               <path d="M4.6665 28.0003C4.6665 15.1137 15.1132 4.66699 27.9998 4.66699C40.8865 4.66699 51.3332 15.1137 51.3332 28.0003C51.3332 40.887 40.8865 51.3337 27.9998 51.3337C15.1132 51.3337 4.6665 40.887 4.6665 28.0003ZM37.5093 18.5088C36.4554 17.7672 34.9999 18.0203 34.2583 19.0742L24.8508 32.4427L20.9764 28.1808C20.1095 27.2272 18.6338 27.1569 17.6803 28.0238C16.7267 28.8906 16.6565 30.3664 17.5233 31.3199L23.3566 37.7366C23.833 38.2606 24.5216 38.5399 25.2284 38.4958C25.9353 38.4517 26.5838 38.089 26.9914 37.5098L38.0747 21.7598C38.8163 20.7059 38.5632 19.2504 37.5093 18.5088Z" fill="var(--green-400, #04B84C)"/>
             </svg>
           </div>
-          <div class="title">Signed in to Codex CLI</div>
+        <div class="title">Signed in to Knowdex CLI</div>
         </div>
         <div class="close-box" style="display: none;">
           <div class="setup-description">You may now close this page</div>

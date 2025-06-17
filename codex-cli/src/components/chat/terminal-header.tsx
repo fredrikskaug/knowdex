@@ -22,7 +22,7 @@ const TerminalHeader: React.FC<TerminalHeaderProps> = ({
   version,
   PWD,
   model,
-  provider = "openai",
+  provider = "azure",
   approvalPolicy,
   colorsByPolicy,
   agent,
@@ -31,21 +31,26 @@ const TerminalHeader: React.FC<TerminalHeaderProps> = ({
 }) => {
   return (
     <>
-      {terminalRows < 10 ? (
+        {terminalRows < 10 ? (
         // Compact header for small terminal windows
         <Text>
-          ● Codex v{version} - {PWD} - {model} ({provider}) -{" "}
+          ● Knowdex v{version} - {PWD} - {model} ({provider}) -{" "}
           <Text color={colorsByPolicy[approvalPolicy]}>{approvalPolicy}</Text>
           {flexModeEnabled ? " - flex-mode" : ""}
         </Text>
       ) : (
+
         <>
           <Box borderStyle="round" paddingX={1} width={64}>
             <Text>
-              ● OpenAI <Text bold>Codex</Text>{" "}
-              <Text dimColor>
-                (research preview) <Text color="blueBright">v{version}</Text>
-              </Text>
+                {`
+         _   __                                  
+        | | / /                     ___          
+        | |/ / _ __   _____      __/   \\_____  __
+        |    \\| '_ \\ / _ \\ \\ /\\ / / /\\ / _ \\ \\/ /
+        | |\\  \\ | | | (_) \\ V  V / /_//  __/>  < 
+        \\_| \\_/_| |_|\\___/ \\_/\\_/____/\\___/ _/\\_\\                                      
+        `}                                      
             </Text>
           </Box>
           <Box
@@ -55,24 +60,17 @@ const TerminalHeader: React.FC<TerminalHeaderProps> = ({
             width={64}
             flexDirection="column"
           >
-            <Text>
-              localhost <Text dimColor>session:</Text>{" "}
-              <Text color="magentaBright" dimColor>
-                {agent?.sessionId ?? "<no-session>"}
-              </Text>
+            <Text dimColor> workdir: <Text bold>{PWD}</Text>
             </Text>
-            <Text dimColor>
-              <Text color="blueBright">↳</Text> workdir: <Text bold>{PWD}</Text>
-            </Text>
-            <Text dimColor>
+            {/*<Text dimColor>
               <Text color="blueBright">↳</Text> model: <Text bold>{model}</Text>
             </Text>
             <Text dimColor>
               <Text color="blueBright">↳</Text> provider:{" "}
               <Text bold>{provider}</Text>
             </Text>
-            <Text dimColor>
-              <Text color="blueBright">↳</Text> approval:{" "}
+            */}
+            <Text dimColor> approval:{" "}
               <Text bold color={colorsByPolicy[approvalPolicy]}>
                 {approvalPolicy}
               </Text>

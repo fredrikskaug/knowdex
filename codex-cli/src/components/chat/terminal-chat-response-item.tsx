@@ -144,7 +144,7 @@ function TerminalChatResponseMessage({
   return (
     <Box flexDirection="column">
       <Text bold color={colorsByRole[message.role] || "gray"}>
-        {message.role === "assistant" ? "codex" : message.role}
+        {message.role === "assistant" ? "knowdex" : message.role}
       </Text>
       <Markdown fileOpener={fileOpener}>
         {message.content

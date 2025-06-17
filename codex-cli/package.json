@@ -1,9 +1,9 @@
 {
-  "name": "@openai/codex",
+  "name": "@openai/knowdex",
   "version": "0.0.0-dev",
   "license": "Apache-2.0",
   "bin": {
-    "codex": "bin/codex.js"
+    "knowdex": "bin/codex.js"
   },
   "type": "module",
   "engines": {
@@ -27,6 +27,7 @@
     "dist"
   ],
   "dependencies": {
+    "@azure/identity": "^4.10.0",
     "@inkjs/ui": "^2.0.0",
     "chalk": "^5.2.0",
     "diff": "^7.0.0",
